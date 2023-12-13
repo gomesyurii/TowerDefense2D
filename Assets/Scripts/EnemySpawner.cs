@@ -29,7 +29,6 @@ public class EnemySpawner : MonoBehaviour
     private void EnemyDestroyed()
     {
         enemiesAlive--;
-        
     }
 
     private void StartWave()
@@ -41,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         OnEnemyDestroy.AddListener(EnemyDestroyed);
-
     }
     private void Start()
     {
@@ -56,13 +54,10 @@ public class EnemySpawner : MonoBehaviour
     private void Update()
     {
         if (!isSpawning) return;
-
         timeSinceLastSpawn += Time.deltaTime;
-
         if (timeSinceLastSpawn >= 1f / enemiesPerSecond && enemiesLeftToSpawn > 0)
         {
-
-            SpawnEnemy();
+            SpawnEnemy(); 
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
@@ -72,10 +67,8 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
        // Debug.Log("Spawning enemy");
-
         GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
         Instantiate(prefabToSpawn, LevelManager.main.startPoint.position, Quaternion.identity);
-
     }
 
 

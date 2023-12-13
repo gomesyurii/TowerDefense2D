@@ -8,18 +8,12 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
-   
-
-
 
     [Header("Attributes")]
     [SerializeField] private float turretRange = 3.5f;
     [SerializeField] private float TurretRotationSpeed = 5f;
     private Transform target;
     
-
-
-
     private void Update()
     {
         if (target == null)
@@ -28,7 +22,6 @@ public class Turret : MonoBehaviour
         }
 
         RotateTowardsTarget();
-
         checkTargetIsInRange();
     }
 
@@ -49,11 +42,11 @@ public class Turret : MonoBehaviour
         {
             return;
         }
+
         if (Vector2.Distance(target.position, transform.position) > turretRange)
         {
             target = null;
         }
-
     }
 
     private void RotateTowardsTarget()
@@ -73,6 +66,5 @@ public class Turret : MonoBehaviour
     {
         Handles.color = Color.cyan;
         Handles.DrawWireDisc(transform.position, transform.forward, turretRange);
-
     }
 }
