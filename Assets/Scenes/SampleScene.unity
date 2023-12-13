@@ -4994,7 +4994,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 7.55
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -10974,6 +10974,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   turretRange: 3.5
+  TurretRotationSpeed: 200
 --- !u!1001 &1125987413
 PrefabInstance:
   m_ObjectHideFlags: 0
