@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -12,8 +14,15 @@ public class EnemyMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
 
+
+
+
     private Transform target;
     private int pathIndex = 0;
+
+
+
+
 
     private void Start()
     {
@@ -26,11 +35,14 @@ public class EnemyMovement : MonoBehaviour
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
             pathIndex++;
-            
+
 
 
             if (pathIndex >= LevelManager.main.path.Length)
             {
+
+                EnemySpawner.OnEnemyDestroy.Invoke();
+
                 Destroy(gameObject);
                 return;
             }
