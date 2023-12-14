@@ -13,10 +13,10 @@ public class EnemySpawner : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private int baseEnemies = 8;
     [SerializeField] private float enemiesPerSecond = 0.5f;
-    [SerializeField] private float timeBetweenWavesInSeconds = 5f;
+    [SerializeField] private float timeBetweenWaves = 5f;
     [SerializeField] private float difficultScalingFactor = 0.75f;
 
-    [Header("Events")]
+    [Header("Events")] 
     public static UnityEvent OnEnemyDestroy = new UnityEvent();
 
     private int currentWave = 1;
@@ -31,8 +31,9 @@ public class EnemySpawner : MonoBehaviour
         enemiesAlive--;
     }
 
-    private void StartWave()
+    private IEnumerator StartWave()
     {
+        yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true;
         enemiesLeftToSpawn = EnemiesPerWave();
     }
@@ -41,9 +42,14 @@ public class EnemySpawner : MonoBehaviour
     {
         OnEnemyDestroy.AddListener(EnemyDestroyed);
     }
+
+    public int GetCurrentWave()
+    {
+        return currentWave;
+    }
     private void Start()
     {
-        StartWave();
+        StartCoroutine(StartWave());
     }
 
     private int EnemiesPerWave()
@@ -57,16 +63,28 @@ public class EnemySpawner : MonoBehaviour
         timeSinceLastSpawn += Time.deltaTime;
         if (timeSinceLastSpawn >= 1f / enemiesPerSecond && enemiesLeftToSpawn > 0)
         {
-            SpawnEnemy(); 
+            SpawnEnemy();
             enemiesLeftToSpawn--;
             enemiesAlive++;
             timeSinceLastSpawn = 0f;
         }
+
+        if (enemiesLeftToSpawn <= 0 && enemiesAlive <= 0)
+        {
+           endWave();
+        }
+    }
+
+    private void endWave()
+    {
+        isSpawning = false;
+        currentWave++;
+        StartCoroutine(StartWave());
     }
 
     private void SpawnEnemy()
     {
-       // Debug.Log("Spawning enemy");
+        // Debug.Log("Spawning enemy");
         GameObject prefabToSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
         Instantiate(prefabToSpawn, LevelManager.main.startPoint.position, Quaternion.identity);
     }

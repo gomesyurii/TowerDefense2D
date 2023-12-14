@@ -8,25 +8,34 @@ public class Plot : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
-    [SerializeField] private Color hoverColor;	
+    [SerializeField] private Color hoverColor;
     private Color originalColor;
 
-    void Start(){
+    void Start()
+    {
         originalColor = sr.color;
     }
 
-    private void OnMouseEnter(){
-        sr.color = hoverColor; 
+    private void OnMouseEnter()
+    {
+        sr.color = hoverColor;
     }
 
-    private void OnMouseExit(){
+    private void OnMouseExit()
+    {
         sr.color = originalColor;
     }
 
-    private void OnMouseDown(){
+    private void OnMouseDown()
+    {
         if (tower != null) return;
-        GameObject towerPrefab = BuildManager.main.GetTowerPrefab();
-        tower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
-    }
 
+        GameObject towerPrefab = BuildManager.main.GetTowerPrefab();
+        Turret towerScript = towerPrefab.GetComponent<Turret>();
+
+        if (LevelManager.main.currency < towerScript.GetCost()) return;
+
+        tower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
+        LevelManager.main.DecreaseCurrency(towerScript.GetCost());
+    }
 }

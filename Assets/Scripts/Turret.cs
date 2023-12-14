@@ -15,6 +15,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private float turretRange = 3.5f;
     [SerializeField] private float TurretRotationSpeed = 5f;
     [SerializeField] private float bulletsPerSecond = 1f;
+    [SerializeField] private int towerCost = 5;
 
     private Transform target;
     private float timeSinceLastShot = 0f;
@@ -59,6 +60,13 @@ public class Turret : MonoBehaviour
         }
     }
 
+    public int GetCost()
+    {
+        return towerCost;
+    }
+
+
+
     private bool checkTargetIsInRange()
     {
 
@@ -91,9 +99,9 @@ public class Turret : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
-    {
-        Handles.color = Color.cyan;
-        Handles.DrawWireDisc(transform.position, transform.forward, turretRange);
-    }
+   // private void OnDrawGizmosSelected()
+   // {
+  //      Handles.color = Color.cyan;
+  //      Handles.DrawWireDisc(transform.position, transform.forward, turretRange);
+   // }
 }
