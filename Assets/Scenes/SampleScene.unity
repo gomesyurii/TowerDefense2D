@@ -5742,7 +5742,7 @@ MonoBehaviour:
   - {fileID: 8311555556770312259, guid: a698ed317d06b9241ab95fe6aa3786b7, type: 3}
   baseEnemies: 8
   enemiesPerSecond: 0.5
-  timeBetweenWavesInSeconds: 5
+  timeBetweenWavesInSeconds: 1
   difficultScalingFactor: 0.75
   enemiesAlive: 0
 --- !u!1001 &596494404

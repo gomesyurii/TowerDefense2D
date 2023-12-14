@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private float bulletSpeed = 5f;
-    [SerializeField] private float bulletDamage = 1f;
+    [SerializeField] private float bulletDamage = 5f;
 
     private Transform target;
     public void SetTarget(Transform target)
@@ -30,11 +30,11 @@ public class Bullet : MonoBehaviour
 
     }
 
-    private void onCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-          //  collision.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage);
+           collision.gameObject.GetComponent<Health>().TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
     }
