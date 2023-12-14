@@ -8,6 +8,8 @@ public class Health : MonoBehaviour
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;
 
+    private bool isDead = false;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -16,9 +18,10 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0f)
+        if (currentHealth <= 0f && !isDead)
         {
             EnemySpawner.OnEnemyDestroy.Invoke();
+            isDead = true;
             Destroy(this.gameObject);
         }
     }
