@@ -33,9 +33,10 @@ public class Plot : MonoBehaviour
         GameObject towerPrefab = BuildManager.main.GetTowerPrefab();
         Turret towerScript = towerPrefab.GetComponent<Turret>();
 
-        if (LevelManager.main.currency < towerScript.GetCost()) return;
+        if (LevelManager.main.AvailableTurrets < 1) return; 
 
         tower = Instantiate(towerPrefab, transform.position, Quaternion.identity);
         LevelManager.main.DecreaseCurrency(towerScript.GetCost());
+        LevelManager.main.AvailableTurrets -= 1;
     }
 }

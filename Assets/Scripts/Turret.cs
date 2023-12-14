@@ -62,7 +62,7 @@ public class Turret : MonoBehaviour
 
     public int GetCost()
     {
-        return towerCost;
+        return  towerCost;
     }
 
 
