@@ -8,12 +8,17 @@ public class Turret : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform turretRotationPoint;
     [SerializeField] private LayerMask enemyMask;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform bulletSpawnPoint;
 
     [Header("Attributes")]
     [SerializeField] private float turretRange = 3.5f;
     [SerializeField] private float TurretRotationSpeed = 5f;
+    [SerializeField] private float bulletsPerSecond = 1f;
+
     private Transform target;
-    
+    private float timeSinceLastShot = 0f;
+
     private void Update()
     {
         if (target == null)
@@ -22,9 +27,28 @@ public class Turret : MonoBehaviour
         }
 
         RotateTowardsTarget();
-        checkTargetIsInRange();
-    }
+        if (!checkTargetIsInRange())
+        {
+            target = null;
+        }
+        else
+        {
+            timeSinceLastShot += Time.deltaTime;
+            if (timeSinceLastShot >= 1f / bulletsPerSecond)
+            {
+                Shoot(); 
+                timeSinceLastShot = 0f;
+            }
+        }
 
+    }
+    
+    private void Shoot() 
+    {
+        GameObject bulletObject = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+        Bullet bulletScript = bulletObject.GetComponent<Bullet>();
+        bulletScript.SetTarget(target);
+    }
     private void findTarget()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, turretRange, (Vector2)transform.position, 0f, enemyMask);
@@ -35,17 +59,22 @@ public class Turret : MonoBehaviour
         }
     }
 
-    private void checkTargetIsInRange()
+    private bool checkTargetIsInRange()
     {
 
         if (target == null)
         {
-            return;
+            return false;
         }
 
         if (Vector2.Distance(target.position, transform.position) > turretRange)
         {
             target = null;
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
