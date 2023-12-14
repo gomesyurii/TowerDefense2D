@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public Transform startPoint;
     public int AvailableTurrets;
     public Turret towerPrefab;
+    public int lives = 3;
     public Transform[] path;
 
     public void Awake()
@@ -30,8 +31,14 @@ public class LevelManager : MonoBehaviour
         currency -= amount;
     }
 
+    public void DecreaseLives(int amount)
+    {
+        lives -= amount;
+    }
+
     public void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             buyTurret();

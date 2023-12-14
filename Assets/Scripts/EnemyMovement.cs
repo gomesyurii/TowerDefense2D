@@ -31,24 +31,31 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Vector2.Distance(target.position, transform.position) <= 0.1f)
+        if (LevelManager.main.lives > 0 )
         {
-            pathIndex++;
-
-
-
-            if (pathIndex >= LevelManager.main.path.Length)
+            if (Vector2.Distance(target.position, transform.position) <= 0.1f)
             {
+                pathIndex++;
 
-                EnemySpawner.OnEnemyDestroy.Invoke();
 
-                Destroy(gameObject);
-                return;
+
+                if (pathIndex >= LevelManager.main.path.Length)
+                {
+
+                    EnemySpawner.OnEnemyDestroy.Invoke();
+                    LevelManager.main.DecreaseLives(1);
+
+                    Destroy(gameObject);
+                    return;
+                }
+                else
+                {
+                    target = LevelManager.main.path[pathIndex];
+                }
             }
-            else
-            {
-                target = LevelManager.main.path[pathIndex];
-            }
+        } else
+        {
+            Destroy(gameObject);
         }
     }
 
