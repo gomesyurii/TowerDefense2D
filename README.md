@@ -40,7 +40,3 @@ This project is still a work in progress, and contributions are highly encourage
 
 This Tower Defense game in Unity was inspired by tutorials and content from [MuddyWolf's YouTube channel](https://www.youtube.com/user/MuddyWolfGames). We would like to thank MuddyWolf for their invaluable guidance and expertise in game development.
 
-
-## Authors
-
-This Tower Defense game in Unity was developed by [Your Name](https://github.com/your-username) and [Contributor's Name](https://github.com/contributor-username).
