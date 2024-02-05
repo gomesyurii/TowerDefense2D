@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
 
     public void buyTurret()
     {
-         Turret towerScript = towerPrefab.GetComponent<Turret>();
+        Turret towerScript = towerPrefab.GetComponent<Turret>();
         if (currency >= towerScript.GetCost())
         {
             AvailableTurrets += 1;
